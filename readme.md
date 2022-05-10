@@ -7,6 +7,9 @@ It fetches the rating from the [FIDE website](https://ratings.fide.com/)
 and processes the page with regexes to extract the data.
 This module is extremely lightweight and doesn't require any additional modules.
 
+If you like this module give it a star ⭐️ on
+[GitHub](https://github.com/Cristian-A/fide_rs).
+
 ### The result is a `FidePlayer` object:
 
 ```ts
