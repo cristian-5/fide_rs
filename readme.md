@@ -14,14 +14,14 @@ If you like this module give it a star ⭐️ on
 
 ```ts
 export interface FIDEPlayer {
-	id: string;
-	name: string;
-	federation: string;
-	country?: string;
-	title?: string;
-	sex: Sex;
-	year: number;
-	ratings: { category: Category, rating: number }[];
+    id: string;
+    name: string;
+    federation: string;
+    country?: string;
+    title?: string;
+    sex: Sex;
+    year: number;
+    ratings: { category: Category, rating: number }[];
 }
 
 type Category = 'standard' | 'blitz' | 'rapid';
