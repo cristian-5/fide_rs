@@ -11,8 +11,13 @@ const COUNTRY = /src="?\/svg\/(.{3})\.svg"?\s+class="?flg"?/;
 const SEX = /Sex:<\/div>(?:(?:.|\n)+?)>(.+?)</m;
 const YEAR = /B-Year:<\/div>(?:(?:.|\n)+?)>(\d{4})</m;
 
+type Rating = number | 'UNR';
 type Category = 'standard' | 'blitz' | 'rapid';
 type Sex = 'M' | 'F' | 'O';
+
+const STD = 'standard' as Category;
+const BTZ = 'blitz' as Category;
+const RAP = 'rapid' as Category;
 
 export interface FIDEPlayer {
 	id: string;
@@ -22,7 +27,7 @@ export interface FIDEPlayer {
 	title?: string;
 	sex: Sex;
 	year: number;
-	ratings: { category: Category, rating: number }[];
+	ratings: { category: Category, rating: Rating }[];
 }
 
 function find(regex: RegExp, html: string): string | undefined {
@@ -51,14 +56,14 @@ export async function FIDE(id: string): Promise<FIDEPlayer | null | undefined> {
 	let sex = (find(SEX, html) || 'O')[0] as ('M' | 'F' | 'O');
 	const year = parseInt(find(YEAR, html)!);
 	let ratings = [];
-	if (STANDARD.test(html)) ratings.push({
-		category: 'standard' as Category, rating: parseInt(find(STANDARD, html)!)
-	});
-	if (BLITZ.test(html)) ratings.push({
-		category: 'blitz' as Category, rating: parseInt(find(BLITZ, html)!)
-	});
-	if (RAPID.test(html)) ratings.push({
-		category: 'rapid' as Category, rating: parseInt(find(RAPID, html)!)
-	});
+	if (STANDARD.test(html)) {
+		ratings.push({ category: STD, rating: parseInt(find(STANDARD, html)!) });
+	} else ratings.push({ category: STD, rating: 'UNR' as Rating });
+	if (RAPID.test(html)) {
+		ratings.push({ category: RAP, rating: parseInt(find(RAPID, html)!) });
+	} else ratings.push({ category: RAP, rating: 'UNR' as Rating });
+	if (BLITZ.test(html)) {
+		ratings.push({ category: BTZ, rating: parseInt(find(BLITZ, html)!) });
+	} else ratings.push({ category: BTZ, rating: 'UNR' as Rating });
 	return { id, name, federation, country, title, sex, year, ratings };
 }

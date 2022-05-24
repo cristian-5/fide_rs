@@ -21,9 +21,10 @@ export interface FIDEPlayer {
     title?: string;
     sex: Sex;
     year: number;
-    ratings: { category: Category, rating: number }[];
+    ratings: { category: Category, rating: Rating }[];
 }
 
+type Rating = number | 'UNR';
 type Category = 'standard' | 'blitz' | 'rapid';
 type Sex = 'M' | 'F' | 'O';
 ```
