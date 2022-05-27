@@ -155,5 +155,5 @@ export const countries: { [code: string]: string[]; } = {
 	"VNM": [ "VN", "🇻🇳" ], "VUT": [ "VU", "🇻🇺" ], "WLF": [ "WF", "🇼🇫" ],
 	"WSM": [ "WS", "🇼🇸" ], "KOS": [ "XK", "🇽🇰" ], "YEM": [ "YE", "🇾🇪" ],
 	"MYT": [ "YT", "🇾🇹" ], "ZAF": [ "ZA", "🇿🇦" ], "ZMB": [ "ZM", "🇿🇲" ],
-	"ZWE": [ "ZW", "🇿🇼" ]
+	"ZWE": [ "ZW", "🇿🇼" ], "BUL": [ "BG", "🇧🇬" ],
 };
