@@ -38,17 +38,17 @@ console.log(user);
 
 ```json
 {
-    id: "1503014",
-    name: "Carlsen, Magnus",
-    country: "NO",
-    flag: "🇳🇴",
-    title: "Grandmaster",
-    sex: "M",
-    year: 1990,
-    ratings: {
-        standard: { rating: 2837 },
-        rapid: { rating: 2819 },
-        blitz: { rating: 2883 }
+    "id": "1503014",
+    "name": "Carlsen, Magnus",
+    "country": "NO",
+    "flag": "🇳🇴",
+    "title": "Grandmaster",
+    "sex": "M",
+    "year": 1990,
+    "ratings": {
+        "standard": { "rating": 2837 },
+        "rapid": { "rating": 2819 },
+        "blitz": { "rating": 2883 }
     }
 }
 ```
