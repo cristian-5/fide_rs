@@ -14,38 +14,41 @@ If you like this module give it a star ⭐️ on
 
 ```ts
 export interface FIDEPlayer {
-    id: string;
-    name: string;
-    federation: string;
-    country?: string;
-    title?: string;
-    flag?: string;
-    sex: Sex;
-    year: number;
-    ratings: { category: Category, rating: Rating }[];
+	id: string;
+	name: string;
+	country: string; // defaults to None
+	flag: string;    // defaults to 🏳️
+	title: string;   // defaults to None
+	sex: 'M' | 'F' | 'O';
+	year: number;
+	ratings: { [category: string]: { rating: number } };
 }
-
-type Federation = string | 'FIDE';
-type Rating = number | 'UNR';
-type Category = 'standard' | 'blitz' | 'rapid';
-type Sex = 'M' | 'F' | 'O';
 ```
-
-The `federation` and `country` fields can hold different values.\
-The `federation` field is the country of the player or the
-value 'FIDE' where no federation is specified.\
-The `country` field is the 3-letter country code of the player.\
-The `flag` field is a flag emoji based on the country.\
-The `country`, `title`, `flag` fields can be undefined.\
-The `year` field is the year of birth of the player.\
 
 ### Usage:
 
 ```ts
-
 import { FIDE } from './mod.ts';
 
-// Magnus Carlsen:
-let user = await FIDE('1503014');
+let user = await FIDE('1503014'); // Magnus Carlsen
+console.log(user);
+```
 
+### Output
+
+```json
+{
+    id: "1503014",
+    name: "Carlsen, Magnus",
+    country: "NO",
+    flag: "🇳🇴",
+    title: "Grandmaster",
+    sex: "M",
+    year: 1990,
+    ratings: {
+        standard: { rating: 2837 },
+        rapid: { rating: 2819 },
+        blitz: { rating: 2883 }
+    }
+}
 ```
