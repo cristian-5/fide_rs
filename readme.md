@@ -11,14 +11,14 @@ This module is extremely lightweight and doesn't require any additional modules.
 
 ```ts
 export interface FIDEPlayer {
-	id: string;
-	name: string;
-	country: string; // defaults to None
-	flag: string;    // defaults to 🏳️
-	title: string;   // defaults to None
-	sex: 'M' | 'F' | 'O';
-	year: number;
-	ratings: { [category: string]: { rating: number } };
+    id: string;
+    name: string;
+    country: string; // defaults to None
+    flag: string;    // defaults to 🏳️
+    title: string;   // defaults to None
+    sex: 'M' | 'F' | 'O';
+    year: number;
+    ratings: { [category: string]: { rating: number } };
 }
 ```
 
