@@ -13,9 +13,9 @@ const YEAR = /profile-info-byear\s*"\s*>\s*(\d{4})\s*</m;
 export interface FIDEPlayer {
 	id: string;
 	name: string;
-	country: string;
-	flag: string;
-	title: string;
+	country?: string;
+	flag?: string;
+	title?: string;
 	sex: 'M' | 'F' | 'O';
 	year: number;
 	ratings: { [category: string]: { rating: number } };
@@ -26,6 +26,17 @@ function find(regex: RegExp, html: string): string | null {
 	if (data === null) return null;
 	else return data[1].trim();
 }
+
+const TITLES: { [original: string]: string } = {
+	"Woman Candidate Master": "WCM",
+	"Woman FIDE Master": "WFM",
+	"Woman International Master": "WIM",
+	"Woman Grandmaster": "WGM",
+	"Candidate Master": "CM",
+	"FIDE Master": "FM",
+	"International Master": "IM",
+	"Grandmaster": "GM",
+};
 
 /// FIDE Player Profile
 /// - returns `null` on error or exception.
@@ -40,9 +51,10 @@ export async function FIDE(id: string): Promise<FIDEPlayer | null> {
 	html = await html.text();
 	if (!NAME.test(html)) return null;
 	const name = find(NAME, html)!;
-	const country = (find(COUNTRY, html) || "").toUpperCase();
-	const title = find(TITLE, html) || "None";
-	const sex = (find(SEX, html) || 'O')[0] as ('M' | 'F' | 'O');
+	const country = (find(COUNTRY, html) ?? "").toUpperCase() || undefined;
+	let title = find(TITLE, html) ?? undefined;
+	if (title && title in TITLES) title = TITLES[title];
+	const sex = (find(SEX, html) ?? 'O')[0] as ('M' | 'F' | 'O');
 	const year = parseInt(find(YEAR, html)!);
 	const ratings: { [category: string]: { rating: number } } = {};
 	if (STANDARD.test(html)) {
@@ -54,8 +66,9 @@ export async function FIDE(id: string): Promise<FIDEPlayer | null> {
 	if (BLITZ.test(html)) {
 		ratings["blitz"] = { rating: parseInt(find(BLITZ, html)!) };
 	} else ratings["blitz"] = { rating: 0 };
-	const flag = country.length === 2 ? String.fromCodePoint(
+	let flag;
+	if (country && country.length === 2) flag = String.fromCodePoint(
 		country.charCodeAt(0) + 127397, country.charCodeAt(1) + 127397
-	) : "🏳️"; // defaults to white flag in case country is invalid
+	);
 	return { id, name, country: country || "None", flag, title, sex, year, ratings };
 }

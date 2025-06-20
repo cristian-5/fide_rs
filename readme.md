@@ -13,9 +13,9 @@ This module is extremely lightweight and doesn't require any additional modules.
 export interface FIDEPlayer {
     id: string;
     name: string;
-    country: string; // defaults to None
-    flag: string;    // defaults to 🏳️
-    title: string;   // defaults to None
+    country?: string;
+    flag?: string;
+    title?: string;
     sex: 'M' | 'F' | 'O';
     year: number;
     ratings: { [category: string]: { rating: number } };
@@ -39,7 +39,7 @@ console.log(user);
     "name": "Carlsen, Magnus",
     "country": "NO",
     "flag": "🇳🇴",
-    "title": "Grandmaster",
+    "title": "GM",
     "sex": "M",
     "year": 1990,
     "ratings": {
